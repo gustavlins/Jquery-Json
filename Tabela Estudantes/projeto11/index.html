@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="gradedata.js"></script>
+        <script src="jquery-3.3.1.min.js"></script>
+        <style>
+            *{
+                font-family: verdana;
+                font-size: 11pt;
+            }
+            .mulher{
+                background: linear-gradient(#e22a2a,#e0fd63);
+                width: 250px;
+                height: 230px;
+                border-radius: 30px;
+                padding: 30px;
+                border: 1px solid #0c65be;
+            }
+            .homem{
+                background: linear-gradient(#1e7fe0,#e0fd63);
+                width: 250px;
+                height: 230px;
+                border-radius: 30px;
+                padding: 30px;
+                border: 1px solid #0c65be;
+            }
+            hr {
+                color: #000000;
+                background-color: #000000;
+                height: 1px;
+                border: none;
+                width: 260px;
+            }
+            img{
+                background: white;
+                width: 100px;
+                margin-left: 70px;
+            }
+        </style>
+        <script>
+            $(function(){
+              $("#btn1").click(listarAlunos);
+              $("#btn2").click(porcentagemAlunos);
+              $("#btn3").click(mediaAlunos);
+              });
+            
+            function listarAlunos(){
+                $("#rel").empty
+                var classe="";
+                for(var i=0; i<alunos.length; i++){
+                    if(alunos[i].gender=="Male"){
+                        classe="homem";
+                    }else{
+                        classe="mulher";
+                    }
+                    $("#rel").append("<div class='"+classe+"'"+
+                                     "<br><center><b>"+alunos[i].first_name+
+                                     " "+alunos[i].last_name+
+                                     "</b></center><hr><img src='"+alunos[i].photo+"'><br>"+
+                                     "<b>Idade:</b>"+alunos[i].age+
+                                     "<br><b>Genero:</b>"+alunos[i].gender+
+                                     "<br><b>Horas de estudo:</b>"+alunos[i].hours+
+                                     "<br><b>Notas:</b>"+alunos[i].grade+
+                                     "</div><br>");
+                }
+            }
+            function porcentagemAlunos(){
+                $("#rel").empty
+                var p1 = 0;
+                var p2 = 0;
+                var p3 = 0;
+                var p4 = 0;
+                    for(var i=0; i<alunos.length; i++){
+                        if(alunos[i].grade <=60){
+                           p1++;
+                        }else if(alunos[i].grade > 60 && alunos[i].grade <=70){
+                            p2++;
+                        }else if(alunos[i].grade > 70 && alunos[i].grade <=80){
+                            p3++;
+                        }else{
+                            p4++;
+                        }
+                    }
+                $("#rel").append("<p> A porcentagem de alunos que tiraram nota maior ou igual a 60 é:" + (p1 * 100 / alunos.length) + "%<br></p>")
+                
+                $("#rel").append("<p> A porcentagem de alunos que tiraram nota maior que 60 e menor ou igual a 70 é:" + (p2 * 100 / alunos.length) + "%<br></p>")
+                
+                $("#rel").append("<p> A porcentagem de alunos que tiraram nota maior que 70 menor ou igual a 80 é de:" + (p3 * 100 / alunos.length) + "%<br></p>")
+                
+                $("#rel").append("<p> A porcentagem de alunos que tiraram nota maior que 80 é de:" + (p4 * 100 / alunos.length) + "%<br></p>")
+            }
+            function mediaAlunos(){
+                $("#rel").empty();
+                var qtH = 0;
+                var qtM = 0;
+                for(var i = 0; i < alunos.length; i++){
+                    if(alunos[i].gender == "Male"){
+                        qtH++;
+                        $("#rel").append("<p> A média da notas dos alunos homens é de: " + (alunos[i].grade) + "<br></p>")
+                    break;
+                    }
+                }
+                for(var i = 0; i < alunos.length; i++){
+                    if(alunos[i].gender == "Female"){
+                        qtM++;
+                        $("#rel").append("<p> A média da notas dos alunos mulheres é de: " + (alunos[i].grade) + "<br></p>")
+                    break;
+                    }
+                }
+            }
+        </script>
+    </head>
+<body>
+    <input type="button" id="btn1" value="Listar pessoas">
+    <input type="button" id="btn2" value="Porcentagens">
+    <input type="button" id="btn3" value="Média">
+    <div id="rel"></div>
+</body>
+</html>
